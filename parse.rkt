@@ -9,7 +9,7 @@
 
 (define (parse-top-level the-string)
   `(block
-    ,(list)
+    (group)
     ,(parse-block-body (string-split the-string "\n"))))
 
 (define (parse-block-body lines)
@@ -25,12 +25,15 @@
               (let ([body (for/list ([line body])
                             (substring line (string-length BLOCK-PREFIX)))])
                 (cons `(block
-                        (,(parse-atom head))
+                        ,(parse-group head)
                         ,(parse-block-body body))
                       (parse-block-body lineN)))))]
          [else
-          (cons (parse-atom line0)
+          (cons (parse-group line0)
                 (parse-block-body lineN))]))]))
+
+(define (parse-group the-string)
+  `(group ,@(map parse-atom (string-split the-string " "))))
 
 (define (parse-atom the-string)
   (or (string->number the-string)
@@ -38,28 +41,37 @@
 
 (check-equal? (parse "examples/two-atoms")
               '(block
-                ()
-                (1 2)))
+                (group)
+                ((group 1)
+                 (group 2))))
 (check-equal? (parse "examples/one-block")
               '(block
-                ()
+                (group)
                 ((block
-                  (foo)
-                  (2 3)))))
+                  (group foo)
+                  ((group 2)
+                   (group 3))))))
 (check-equal? (parse "examples/nested-blocks")
               '(block
-                ()
+                (group)
                 ((block
-                  (b1)
+                  (group b1)
                   ((block
-                     (b1.1)
-                     (a))
+                     (group b1.1)
+                     ((group a)))
                    (block
-                     (b1.2)
+                     (group b1.2)
                      ())
                    (block
-                     (b1.3)
-                     (b c))))
+                     (group b1.3)
+                     ((group b)
+                      (group c)))))
                  (block
-                  (b2)
-                  (1 2 3)))))
+                  (group b2)
+                  ((group 1)
+                   (group 2)
+                   (group 3))))))
+(check-equal? (parse "examples/multiple-exprs")
+              '(block
+                 (group)
+                 ((group a b c))))
