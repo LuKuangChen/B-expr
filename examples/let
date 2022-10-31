@@ -1,0 +1,8 @@
+let counter =
+    let n = 0
+    fun ():
+        n := n + 1
+        n
+
+counter ()
+counter ()

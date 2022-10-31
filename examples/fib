@@ -1,0 +1,9 @@
+deffun (fib n):
+    cond (n == 0):
+        0
+    elif (n == 1):
+        1
+    else:
+        (fib (n - 1)) + (fib (n - 2))
+
+fib 5
