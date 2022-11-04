@@ -23,6 +23,8 @@ indentation-based language (notably Python)
 
 ## The design
 
+Blocks are marked by indentation
+
 ```
 B-expr ::= block
          | groupOf("(", ")", ",")

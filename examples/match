@@ -1,8 +1,8 @@
-fun append (xs, ys)
-    match xs
-    | []
+fun append (xs, ys):
+  match xs:
+  | []:
         ys
-    | [x, ... xs]
+  | [x, ... xs]:
         x :: (append (xs, ys))
 
 append ([1, 2, 3], [4, 5])

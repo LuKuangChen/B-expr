@@ -1,7 +1,6 @@
-deffun (factorial n):
-    if (n == 0):
+let fact(n) =
+    if (n == 0)
         1
-    else:
-        n * (factorial (n - 1))
+        n * fact(n - 1)
 
-factorial 5
+fact(5)
