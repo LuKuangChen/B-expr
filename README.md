@@ -12,6 +12,15 @@ I should mentioned that this idea is inspired by [Shrubberry](https://github.com
 
 I also should mentioned that one benefit of having an intermediate format is to define a domain on which macros work on.
 
+## Constraints
+
+I want to be able to use indentation to group things.
+
+I want to have different kinds of parenthesis.
+
+I want to support a good portion of the grammar rules of
+indentation-based language (notably Python)
+
 ## The design
 
 ```
